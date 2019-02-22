@@ -1,47 +1,89 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.github.bokire</groupId>
-  <artifactId>fastdfs-spring-boot-starter</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-  
-  <repositories>
-    <repository>
-      <id>yonyou</id>
-      <url>http://maven.yonyoucloud.com/nexus/content/repositories/releases/</url>
-    </repository>
- </repositories>
- 
-  <dependencies>
-  	<dependency>
-		<groupId>org.csource</groupId>
-		<artifactId>fastdfs-client-java</artifactId>
-		<version>1.27-RELEASE</version>
-	</dependency>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.bokire</groupId>
+	<artifactId>fastdfs-spring-boot-starter</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+
+	<properties>
+		<!-- project -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<java.version>1.8</java.version>
+
+		<!-- dependencies -->
+		<spring-boot.version>2.0.4.RELEASE</spring-boot.version>
+		<fastdfs-client-java.version>1.27-RELEASE</fastdfs-client-java.version>
+		<commons-pool2.version>2.6.1</commons-pool2.version>
+
+		<!-- plugins -->
+		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
+		<maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+		<maven-javadoc-plugin.version>3.0.0</maven-javadoc-plugin.version>
+		<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
+	</properties>
 	
-	<dependency>
-	    <groupId>org.apache.commons</groupId>
-	    <artifactId>commons-pool2</artifactId>
-	    <version>2.6.1</version>
-	</dependency>
+	<repositories>
+		<repository>
+			<id>yonyou</id>
+			<url>http://maven.yonyoucloud.com/nexus/content/repositories/releases/</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.csource</groupId>
+			<artifactId>fastdfs-client-java</artifactId>
+			<version>${fastdfs-client-java.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+			<version>${commons-pool2.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<version>${spring-boot.version}</version>
+			<type>pom</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-autoconfigure</artifactId>
+			<version>${spring-boot.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<version>${spring-boot.version}</version>
+			<optional>true</optional>
+		</dependency>
+	</dependencies>
 	
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter</artifactId>
-		<version>2.0.4.RELEASE</version>
-		<type>pom</type>
-	</dependency>
-		
-	<dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-autoconfigure</artifactId>
-      <version>2.0.4.RELEASE</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-      <version>2.0.4.RELEASE</version>
-      <optional>true</optional>
-    </dependency>
-  </dependencies>
+	<scm>
+		<connection>scm:git:git@github.com:bokire/fastdfs-spring-boot-starter.git</connection>
+		<developerConnection>scm:git:git@github.com:bokire/fastdfs-spring-boot-starter.git</developerConnection>
+		<url>https://github.com/bokire/fastdfs-spring-boot-starter.git</url>
+	</scm>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
+	
+	<developers>
+		<developer>
+			<id>bokire</id>
+			<name>bokire</name>
+			<email>369080787@qq.com</email>
+		</developer>
+	</developers>
 </project>

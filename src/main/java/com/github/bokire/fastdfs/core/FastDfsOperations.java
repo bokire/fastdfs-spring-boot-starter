@@ -13,397 +13,291 @@ public interface FastDfsOperations {
 
 	TrackerServer borrowTrackerServer() throws Exception;
 
-	TrackerServer borrowTrackerServer(Long borrowMaxWaitMillis) throws Exception;
-
 	void returnTrackerServer(TrackerServer trackerServer);
 
 	/**
-	 * ÉÏ´«ÎÄ¼ş
+	 * ä¸Šä¼ æ–‡ä»¶
 	 *
-	 * @param local_filename
-	 *            -- ±¾µØĞèÒªÉÏ´«µÄÎÄ¼şÃû
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
+	 * @param local_filename -- æœ¬åœ°éœ€è¦ä¸Šä¼ çš„æ–‡ä»¶å
+	 * @param file_ext_name -- æ–‡ä»¶æ‰©å±•åï¼Œä¸åŒ…æ‹¬(.),nullæ—¶å»local_filenameçš„æ‰©å±•å
+	 * @param meta_list -- æ–‡ä»¶å±æ€§åˆ—è¡¨
+	 * @return -- è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
-	String upload_file(String local_filename);
+	String upload_file(String local_filename, String file_ext_name,
+                        NameValuePair[] meta_list);
 
+	
 	/**
-	 * ÉÏ´«ÎÄ¼ş
+	 * ä¸Šä¼ æ–‡ä»¶
 	 *
-	 * @param local_filename
-	 *            -- ±¾µØĞèÒªÉÏ´«µÄÎÄ¼şÃû
-	 * @param file_ext_name
-	 *            -- ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨(.),nullÊ±È¥local_filenameµÄÀ©Õ¹Ãû
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
+	 * @param group_name -- æŒ‡å®šstorageServerç»„å
+	 * @param local_filename -- æœ¬åœ°éœ€è¦ä¸Šä¼ çš„æ–‡ä»¶å
+	 * @param file_ext_name -- æ–‡ä»¶æ‰©å±•åï¼Œä¸åŒ…æ‹¬(.),nullæ—¶å–local_filenameçš„æ‰©å±•å
+	 * @param meta_list -- æ–‡ä»¶å±æ€§åˆ—è¡¨
+	 * @return -- è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
-	String upload_file(String local_filename, String file_ext_name);
+	String upload_file(String group_name, String local_filename,
+                        String file_ext_name, NameValuePair[] meta_list);
+
+	
+	/**
+	 * ä¸Šä¼ æ–‡ä»¶
+	 *
+	 * @param -- file_buff æ–‡ä»¶å†…å®¹
+	 * @param -- file_ext_name æ–‡ä»¶æ‰©å±•åï¼Œä¸åŒ…æ‹¬(.)
+	 * @param meta_list -- æ–‡ä»¶å±æ€§åˆ—è¡¨
+	 * @return -- è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
+	 * @throws IOException
+	 * @throws MyException
+	 */
+	String upload_file(byte[] file_buff, String file_ext_name,
+                        NameValuePair[] meta_list);
+
+	
+	/**
+	 * ä¸Šä¼ æ–‡ä»¶
+	 *
+	 * @param group_name -- æŒ‡å®šstorageServerç»„å
+	 * @param file_buff -- æ–‡ä»¶å†…å®¹
+	 * @param file_ext_name -- æ–‡ä»¶æ‰©å±•åï¼Œä¸åŒ…æ‹¬(.)
+	 * @param meta_list -- æ–‡ä»¶å±æ€§åˆ—è¡¨
+	 * @return -- è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
+	 * @throws IOException
+	 * @throws MyException
+	 */
+	String upload_file(String group_name, byte[] file_buff,
+                        String file_ext_name, NameValuePair[] meta_list);
+
+	
+	/**
+	 * ä¸Šä¼ æ–‡ä»¶
+	 *
+	 * @param group_name -- æŒ‡å®šstorageServerç»„å
+	 * @param file_size -- æ–‡ä»¶å¤§å°
+	 * @param callback -- callbackå¯¹è±¡ï¼Œæ•°æ®åˆ°è¾¾æ—¶ä¼šè°ƒç”¨callback.recv()è¯¦è§å®˜æ–¹API
+	 * @param file_ext_name -- æ–‡ä»¶æ‰©å±•åï¼Œä¸åŒ…æ‹¬(.)
+	 * @param meta_list -- æ–‡ä»¶å±æ€§åˆ—è¡¨
+	 * @return -- è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
+	 * @throws IOException
+	 * @throws MyException
+	 */
+	String upload_file(String group_name, long file_size,
+                        UploadCallback callback, String file_ext_name,
+                        NameValuePair[] meta_list);
+
+	
+	/**
+	 * ä¸Šä¼ appenderæ–‡ä»¶
+	 *
+	 * @param local_filename -- æœ¬åœ°éœ€è¦ä¸Šä¼ çš„æ–‡ä»¶å
+	 * @param file_ext_name -- æ–‡ä»¶æ‰©å±•åï¼Œä¸åŒ…æ‹¬(.),nullæ—¶å–local_filenameçš„æ‰©å±•å
+	 * @param meta_list æ–‡ä»¶å±æ€§åˆ—è¡¨
+	 * @return -- è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
+	 * @throws IOException
+	 * @throws MyException
+	 */
+	String upload_appender_file(String local_filename, String file_ext_name,
+                                 NameValuePair[] meta_list);
+
+	
+	/**
+	 * ä¸Šä¼ appenderæ–‡ä»¶
+	 *
+	 * @param group_name -- æŒ‡å®šstorageServerç»„å
+	 * @param local_filename -- æœ¬åœ°éœ€è¦ä¸Šä¼ çš„æ–‡ä»¶å
+	 * @param file_ext_name -- æ–‡ä»¶æ‰©å±•åï¼Œä¸åŒ…æ‹¬(.),nullæ—¶å–local_filenameçš„æ‰©å±•å
+	 * @param meta_list -- æ–‡ä»¶å±æ€§åˆ—è¡¨
+	 * @return -- è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
+	 * @throws IOException
+	 * @throws MyException
+	 */
+	String upload_appender_file(String group_name, String local_filename,
+                                 String file_ext_name, NameValuePair[] meta_list);
+
+	
+	/**
+	 * ä¸Šä¼ appenderæ–‡ä»¶
+	 *
+	 * @param file_buff -- æ–‡ä»¶å†…å®¹
+	 * @param file_ext_name -- æ–‡ä»¶æ‰©å±•åï¼Œä¸åŒ…æ‹¬(.)
+	 * @param meta_list -- æ–‡ä»¶å±æ€§åˆ—è¡¨
+	 * @return -- è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
+	 * @throws IOException
+	 * @throws MyException
+	 */
+	String upload_appender_file(byte[] file_buff, String file_ext_name,
+                                 NameValuePair[] meta_list);
+
+	
+	/**
+	 * ä¸Šä¼ appenderæ–‡ä»¶
+	 *
+	 * @param group_name -- æŒ‡å®šstorageServerç»„å
+	 * @param file_buff æ–‡ä»¶å†…å®¹
+	 * @param file_ext_name -- æ–‡ä»¶æ‰©å±•åï¼Œä¸åŒ…æ‹¬(.)
+	 * @param meta_list æ–‡ä»¶å±æ€§åˆ—è¡¨
+	 * @return -- è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
+	 * @throws IOException
+	 * @throws MyException
+	 */
+	String upload_appender_file(String group_name, byte[] file_buff,
+                                 String file_ext_name, NameValuePair[] meta_list);
 
 	/**
-	 * ÉÏ´«ÎÄ¼ş
+	 * ä¸Šä¼ appenderæ–‡ä»¶
 	 *
-	 * @param local_filename
-	 *            -- ±¾µØĞèÒªÉÏ´«µÄÎÄ¼şÃû
+	 * @param group_name -- æŒ‡å®šstorageServerç»„å
+	 * @param file_size -- æ–‡ä»¶å¤§å°
+	 * @param callback -- callbackå¯¹è±¡ï¼Œæ•°æ®åˆ°è¾¾æ—¶ä¼šè°ƒç”¨callback.recv()è¯¦è§å®˜æ–¹API
+	 * @param file_ext_name -- æ–‡ä»¶æ‰©å±•åï¼Œä¸åŒ…æ‹¬(.)
 	 * @param meta_list
-	 *            -- ÎÄ¼şÊôĞÔÁĞ±í
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
+	 * @return -- è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
-	String upload_file(String local_filename, NameValuePair[] meta_list);
+	String upload_appender_file(String group_name, long file_size,
+                                 UploadCallback callback, String file_ext_name,
+                                 NameValuePair[] meta_list);
 
 	/**
-	 * ÉÏ´«ÎÄ¼ş
+	 * ä¸Šä¼ ä»æ–‡ä»¶
 	 *
-	 * @param local_filename
-	 *            -- ±¾µØĞèÒªÉÏ´«µÄÎÄ¼şÃû
-	 * @param file_ext_name
-	 *            -- ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨(.),nullÊ±È¥local_filenameµÄÀ©Õ¹Ãû
-	 * @param meta_list
-	 *            -- ÎÄ¼şÊôĞÔÁĞ±í
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
+	 * @param master_file_id -- ä¸»æ–‡ä»¶fileId
+	 * @param prefix_name -- ä»æ–‡ä»¶å
+	 * @param local_filename -- æœ¬åœ°éœ€è¦ä¸Šä¼ çš„ä»æ–‡ä»¶å
+	 * @param file_ext_name -- æ–‡ä»¶æ‰©å±•åï¼Œä¸åŒ…æ‹¬ï¼ˆ.ï¼‰,nullæ—¶å–local_filenameçš„æ‰©å±•å
+	 * @param meta_list æ–‡ä»¶å±æ€§åˆ—è¡¨
+	 * @return -- è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
-	String upload_file(String local_filename, String file_ext_name, NameValuePair[] meta_list);
+	String upload_file(String master_file_id, String prefix_name,
+                        String local_filename, String file_ext_name,
+                        NameValuePair[] meta_list);
 
 	/**
-	 * ÉÏ´«ÎÄ¼ş
+	 * ä¸Šä¼ ä»æ–‡ä»¶
 	 *
-	 * @param group_name
-	 *            -- Ö¸¶¨storageServer×éÃû
-	 * @param local_filename
-	 *            -- ±¾µØĞèÒªÉÏ´«µÄÎÄ¼şÃû
-	 * @param file_ext_name
-	 *            -- ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨(.),nullÊ±È¡local_filenameµÄÀ©Õ¹Ãû
-	 * @param meta_list
-	 *            -- ÎÄ¼şÊôĞÔÁĞ±í
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
+	 * @param master_file_id -- ä¸»æ–‡ä»¶fileId
+	 * @param prefix_name -- ä»æ–‡ä»¶å
+	 * @param file_buff -- ä»æ–‡ä»¶å†…å®¹
+	 * @param file_ext_name -- æ–‡ä»¶æ‰©å±•åï¼Œä¸åŒ…æ‹¬ï¼ˆ.ï¼‰,nullæ—¶å–local_filenameçš„æ‰©å±•å
+	 * @param meta_list æ–‡ä»¶å±æ€§åˆ—è¡¨
+	 * @return -- è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
-	String upload_file(String group_name, String local_filename, String file_ext_name, NameValuePair[] meta_list);
+	String upload_file(String master_file_id, String prefix_name,
+                        byte[] file_buff, String file_ext_name, NameValuePair[] meta_list);
 
 	/**
-	 * ÉÏ´«ÎÄ¼ş
+	 * ä¸Šä¼ ä»æ–‡ä»¶
 	 *
-	 * @param --
-	 *            file_buff ÎÄ¼şÄÚÈİ
-	 * @param --
-	 *            file_ext_name ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨(.)
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
+	 * @param master_file_id -- ä¸»æ–‡ä»¶fileId
+	 * @param prefix_name -- ä»æ–‡ä»¶å
+	 * @param file_buff -- ä»æ–‡ä»¶å†…å®¹
+	 * @param offset -- start offset of the buffer
+	 * @param length -- the length of the buffer to append
+	 * @param file_ext_name -- æ–‡ä»¶æ‰©å±•åï¼Œä¸åŒ…æ‹¬(.)
+	 * @param meta_list -- æ–‡ä»¶å±æ€§åˆ—è¡¨
+	 * @return -- è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
-	String upload_file(byte[] file_buff, String file_ext_name);
+	String upload_file(String master_file_id, String prefix_name,
+                        byte[] file_buff, int offset, int length, String file_ext_name,
+                        NameValuePair[] meta_list);
 
 	/**
-	 * ÉÏ´«ÎÄ¼ş
+	 * ä¸Šä¼ ä»æ–‡ä»¶
 	 *
-	 * @param --
-	 *            file_buff ÎÄ¼şÄÚÈİ
-	 * @param --
-	 *            file_ext_name ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨(.)
-	 * @param meta_list
-	 *            -- ÎÄ¼şÊôĞÔÁĞ±í
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
+	 * @param master_file_id -- ä¸»æ–‡ä»¶fileId
+	 * @param prefix_name -- ä»æ–‡ä»¶å
+	 * @param file_size -- ä»æ–‡ä»¶å¤§å°
+	 * @param callback -- callbackå¯¹è±¡ï¼Œæ•°æ®åˆ°è¾¾æ—¶ä¼šè°ƒç”¨callback.recv()è¯¦è§å®˜æ–¹API
+	 * @param file_ext_name -- æ–‡ä»¶æ‰©å±•åï¼Œä¸åŒ…æ‹¬(.)
+	 * @param meta_list -- æ–‡ä»¶å±æ€§åˆ—è¡¨
+	 * @return -- è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
-	String upload_file(byte[] file_buff, String file_ext_name, NameValuePair[] meta_list);
+	String upload_file(String master_file_id, String prefix_name,
+                        long file_size, UploadCallback callback, String file_ext_name,
+                        NameValuePair[] meta_list);
 
 	/**
-	 * ÉÏ´«ÎÄ¼ş
+	 * è¿½åŠ ä¸Šä¼ æ–‡ä»¶
 	 *
-	 * @param group_name
-	 *            -- Ö¸¶¨storageServer×éÃû
-	 * @param file_buff
-	 *            -- ÎÄ¼şÄÚÈİ
-	 * @param file_ext_name
-	 *            -- ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨(.)
-	 * @param meta_list
-	 *            -- ÎÄ¼şÊôĞÔÁĞ±í
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
-	 * @throws IOException
-	 * @throws MyException
-	 */
-	String upload_file(String group_name, byte[] file_buff, String file_ext_name, NameValuePair[] meta_list);
-
-	/**
-	 * ÉÏ´«ÎÄ¼ş
-	 *
-	 * @param group_name
-	 *            -- Ö¸¶¨storageServer×éÃû
-	 * @param file_size
-	 *            -- ÎÄ¼ş´óĞ¡
-	 * @param callback
-	 *            -- callback¶ÔÏó£¬Êı¾İµ½´ïÊ±»áµ÷ÓÃcallback.recv()Ïê¼û¹Ù·½API
-	 * @param file_ext_name
-	 *            -- ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨(.)
-	 * @param meta_list
-	 *            -- ÎÄ¼şÊôĞÔÁĞ±í
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
-	 * @throws IOException
-	 * @throws MyException
-	 */
-	String upload_file(String group_name, long file_size, UploadCallback callback, String file_ext_name,
-			NameValuePair[] meta_list);
-
-	/**
-	 * ÉÏ´«appenderÎÄ¼ş
-	 *
-	 * @param local_filename
-	 *            -- ±¾µØĞèÒªÉÏ´«µÄÎÄ¼şÃû
-	 * @param file_ext_name
-	 *            -- ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨(.),nullÊ±È¡local_filenameµÄÀ©Õ¹Ãû
-	 * @param meta_list
-	 *            ÎÄ¼şÊôĞÔÁĞ±í
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
-	 * @throws IOException
-	 * @throws MyException
-	 */
-	String upload_appender_file(String local_filename, String file_ext_name, NameValuePair[] meta_list);
-
-	/**
-	 * ÉÏ´«appenderÎÄ¼ş
-	 *
-	 * @param group_name
-	 *            -- Ö¸¶¨storageServer×éÃû
-	 * @param local_filename
-	 *            -- ±¾µØĞèÒªÉÏ´«µÄÎÄ¼şÃû
-	 * @param file_ext_name
-	 *            -- ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨(.),nullÊ±È¡local_filenameµÄÀ©Õ¹Ãû
-	 * @param meta_list
-	 *            -- ÎÄ¼şÊôĞÔÁĞ±í
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
-	 * @throws IOException
-	 * @throws MyException
-	 */
-	String upload_appender_file(String group_name, String local_filename, String file_ext_name,
-			NameValuePair[] meta_list);
-
-	/**
-	 * ÉÏ´«appenderÎÄ¼ş
-	 *
-	 * @param file_buff
-	 *            -- ÎÄ¼şÄÚÈİ
-	 * @param file_ext_name
-	 *            -- ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨(.)
-	 * @param meta_list
-	 *            -- ÎÄ¼şÊôĞÔÁĞ±í
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
-	 * @throws IOException
-	 * @throws MyException
-	 */
-	String upload_appender_file(byte[] file_buff, String file_ext_name, NameValuePair[] meta_list);
-
-	/**
-	 * ÉÏ´«appenderÎÄ¼ş
-	 *
-	 * @param group_name
-	 *            -- Ö¸¶¨storageServer×éÃû
-	 * @param file_buff
-	 *            ÎÄ¼şÄÚÈİ
-	 * @param file_ext_name
-	 *            -- ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨(.)
-	 * @param meta_list
-	 *            ÎÄ¼şÊôĞÔÁĞ±í
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
-	 * @throws IOException
-	 * @throws MyException
-	 */
-	String upload_appender_file(String group_name, byte[] file_buff, String file_ext_name, NameValuePair[] meta_list);
-
-	/**
-	 * ÉÏ´«appenderÎÄ¼ş
-	 *
-	 * @param group_name
-	 *            -- Ö¸¶¨storageServer×éÃû
-	 * @param file_size
-	 *            -- ÎÄ¼ş´óĞ¡
-	 * @param callback
-	 *            -- callback¶ÔÏó£¬Êı¾İµ½´ïÊ±»áµ÷ÓÃcallback.recv()Ïê¼û¹Ù·½API
-	 * @param file_ext_name
-	 *            -- ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨(.)
-	 * @param meta_list
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
-	 * @throws IOException
-	 * @throws MyException
-	 */
-	String upload_appender_file(String group_name, long file_size, UploadCallback callback, String file_ext_name,
-			NameValuePair[] meta_list);
-
-	/**
-	 * ÉÏ´«´ÓÎÄ¼ş
-	 *
-	 * @param master_file_id
-	 *            -- Ö÷ÎÄ¼şfileId
-	 * @param prefix_name
-	 *            -- ´ÓÎÄ¼şÃû
-	 * @param local_filename
-	 *            -- ±¾µØĞèÒªÉÏ´«µÄ´ÓÎÄ¼şÃû
-	 * @param file_ext_name
-	 *            -- ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨£¨.£©,nullÊ±È¡local_filenameµÄÀ©Õ¹Ãû
-	 * @param meta_list
-	 *            ÎÄ¼şÊôĞÔÁĞ±í
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
-	 * @throws IOException
-	 * @throws MyException
-	 */
-	String upload_file(String master_file_id, String prefix_name, String local_filename, String file_ext_name,
-			NameValuePair[] meta_list);
-
-	/**
-	 * ÉÏ´«´ÓÎÄ¼ş
-	 *
-	 * @param master_file_id
-	 *            -- Ö÷ÎÄ¼şfileId
-	 * @param prefix_name
-	 *            -- ´ÓÎÄ¼şÃû
-	 * @param file_buff
-	 *            -- ´ÓÎÄ¼şÄÚÈİ
-	 * @param file_ext_name
-	 *            -- ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨£¨.£©,nullÊ±È¡local_filenameµÄÀ©Õ¹Ãû
-	 * @param meta_list
-	 *            ÎÄ¼şÊôĞÔÁĞ±í
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
-	 * @throws IOException
-	 * @throws MyException
-	 */
-	String upload_file(String master_file_id, String prefix_name, byte[] file_buff, String file_ext_name,
-			NameValuePair[] meta_list);
-
-	/**
-	 * ÉÏ´«´ÓÎÄ¼ş
-	 *
-	 * @param master_file_id
-	 *            -- Ö÷ÎÄ¼şfileId
-	 * @param prefix_name
-	 *            -- ´ÓÎÄ¼şÃû
-	 * @param file_buff
-	 *            -- ´ÓÎÄ¼şÄÚÈİ
-	 * @param offset
-	 *            -- start offset of the buffer
-	 * @param length
-	 *            -- the length of the buffer to append
-	 * @param file_ext_name
-	 *            -- ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨(.)
-	 * @param meta_list
-	 *            -- ÎÄ¼şÊôĞÔÁĞ±í
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
-	 * @throws IOException
-	 * @throws MyException
-	 */
-	String upload_file(String master_file_id, String prefix_name, byte[] file_buff, int offset, int length,
-			String file_ext_name, NameValuePair[] meta_list);
-
-	/**
-	 * ÉÏ´«´ÓÎÄ¼ş
-	 *
-	 * @param master_file_id
-	 *            -- Ö÷ÎÄ¼şfileId
-	 * @param prefix_name
-	 *            -- ´ÓÎÄ¼şÃû
-	 * @param file_size
-	 *            -- ´ÓÎÄ¼ş´óĞ¡
-	 * @param callback
-	 *            -- callback¶ÔÏó£¬Êı¾İµ½´ïÊ±»áµ÷ÓÃcallback.recv()Ïê¼û¹Ù·½API
-	 * @param file_ext_name
-	 *            -- ÎÄ¼şÀ©Õ¹Ãû£¬²»°üÀ¨(.)
-	 * @param meta_list
-	 *            -- ÎÄ¼şÊôĞÔÁĞ±í
-	 * @return -- ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
-	 * @throws IOException
-	 * @throws MyException
-	 */
-	String upload_file(String master_file_id, String prefix_name, long file_size, UploadCallback callback,
-			String file_ext_name, NameValuePair[] meta_list);
-
-	/**
-	 * ×·¼ÓÉÏ´«ÎÄ¼ş
-	 *
-	 * @param appender_file_id
-	 *            -- appenderÎÄ¼şfileId
-	 * @param local_filename
-	 *            -- ×·¼ÓÉÏ´«ÎÄ¼şµÄÎÄ¼şÃû
-	 * @return -- ·µ»Ø0Ôòsuccess£¬!=0Ôòfalse
+	 * @param appender_file_id -- appenderæ–‡ä»¶fileId
+	 * @param local_filename -- è¿½åŠ ä¸Šä¼ æ–‡ä»¶çš„æ–‡ä»¶å
+	 * @return -- è¿”å›0åˆ™successï¼Œ!=0åˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
 	int append_file(String appender_file_id, String local_filename);
 
 	/**
-	 * ×·¼ÓÉÏ´«ÎÄ¼ş
+	 * è¿½åŠ ä¸Šä¼ æ–‡ä»¶
 	 *
-	 * @param appender_file_id
-	 *            -- appenderÎÄ¼şfileId
-	 * @param file_buff
-	 *            -- ×·¼ÓÉÏ´«µÄÄÚÈİ
-	 * @return -- ·µ»Ø0Ôòsuccess£¬!=0Ôòfalse
+	 * @param appender_file_id -- appenderæ–‡ä»¶fileId
+	 * @param file_buff -- è¿½åŠ ä¸Šä¼ çš„å†…å®¹
+	 * @return -- è¿”å›0åˆ™successï¼Œ!=0åˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
 	int append_file(String appender_file_id, byte[] file_buff);
 
 	/**
-	 * ×·¼ÓÉÏ´«ÎÄ¼ş
+	 * è¿½åŠ ä¸Šä¼ æ–‡ä»¶
 	 *
-	 * @param appender_file_id
-	 *            -- appenderÎÄ¼şfileId
-	 * @param file_buff
-	 *            -- ×·¼ÓÉÏ´«µÄÄÚÈİ
-	 * @param offset
-	 *            -- start offset of the buffer
-	 * @param length
-	 *            -- the length of the buffer to append
-	 * @return -- ·µ»Ø0Ôòsuccess£¬!=0Ôòfalse
+	 * @param appender_file_id -- appenderæ–‡ä»¶fileId
+	 * @param file_buff -- è¿½åŠ ä¸Šä¼ çš„å†…å®¹
+	 * @param offset -- start offset of the buffer
+	 * @param length -- the length of the buffer to append
+	 * @return -- è¿”å›0åˆ™successï¼Œ!=0åˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
-	int append_file(String appender_file_id, byte[] file_buff, int offset, int length);
+	int append_file(String appender_file_id, byte[] file_buff, int offset,
+                     int length);
 
 	/**
-	 * ×·¼ÓÉÏ´«ÎÄ¼şÄÚÈİ
+	 * è¿½åŠ ä¸Šä¼ æ–‡ä»¶å†…å®¹
 	 *
-	 * @param appender_file_id
-	 *            appenderÎÄ¼şfileId
-	 * @param file_size
-	 *            --ÎÄ¼ş´óĞ¡
-	 * @param callback
-	 *            -- callback¶ÔÏó£¬Êı¾İµ½´ïÊ±»áµ÷ÓÃcallback.recv()Ïê¼û¹Ù·½API
-	 * @return ·µ»Ø0Ôòsuccess£¬!=0Ôòfalse
+	 * @param appender_file_id appenderæ–‡ä»¶fileId
+	 * @param file_size --æ–‡ä»¶å¤§å°
+	 * @param callback -- callbackå¯¹è±¡ï¼Œæ•°æ®åˆ°è¾¾æ—¶ä¼šè°ƒç”¨callback.recv()è¯¦è§å®˜æ–¹API
+	 * @return è¿”å›0åˆ™successï¼Œ!=0åˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
-	int append_file(String appender_file_id, long file_size, UploadCallback callback);
+	int append_file(String appender_file_id, long file_size,
+                     UploadCallback callback);
 
 	/**
 	 *
 	 *
-	 * @param appender_file_id
-	 *            -- appenderÎÄ¼şfileId
-	 * @param file_offset
-	 *            -- appenderÎÄ¼ş¿ªÊ¼ĞŞ¸ÄµÄÎ»ÖÃ
-	 * @param local_filename
-	 *            -- ±¾µØÎÄ¼şÃû
-	 * @return ·µ»ØfileIdÔòsuccess£¬nullÔòfalse
+	 * @param appender_file_id -- appenderæ–‡ä»¶fileId
+	 * @param file_offset -- appenderæ–‡ä»¶å¼€å§‹ä¿®æ”¹çš„ä½ç½®
+	 * @param local_filename -- æœ¬åœ°æ–‡ä»¶å
+	 * @return è¿”å›fileIdåˆ™successï¼Œnullåˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
-	int modify_file(String appender_file_id, long file_offset, String local_filename);
+	int modify_file(String appender_file_id, long file_offset,
+                     String local_filename);
 
 	/**
 	 *
 	 *
-	 * @param appender_file_id
-	 *            -- appenderÎÄ¼şfileId
-	 * @param file_offset
-	 *            -- appenderÎÄ¼ş¿ªÊ¼ĞŞ¸ÄµÄÎ»ÖÃ
-	 * @param file_buff
-	 *            -- ĞŞ¸ÄµÄÎÄ¼şÄÚÈİ
-	 * @return ·µ»Ø0Ôòsuccess£¬!=0Ôòfalse
+	 * @param appender_file_id -- appenderæ–‡ä»¶fileId
+	 * @param file_offset -- appenderæ–‡ä»¶å¼€å§‹ä¿®æ”¹çš„ä½ç½®
+	 * @param file_buff -- ä¿®æ”¹çš„æ–‡ä»¶å†…å®¹
+	 * @return è¿”å›0åˆ™successï¼Œ!=0åˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
@@ -412,45 +306,37 @@ public interface FastDfsOperations {
 	/**
 	 *
 	 *
-	 * @param appender_file_id
-	 *            -- appenderÎÄ¼şfileId
-	 * @param file_offset
-	 *            -- appenderÎÄ¼ş¿ªÊ¼ĞŞ¸ÄµÄÎ»ÖÃ
-	 * @param file_buff
-	 *            -- ĞŞ¸ÄµÄÎÄ¼şÄÚÈİ
-	 * @param buffer_offset
-	 *            -- ĞŞ¸ÄÄÚÈİ¿ªÊ¼Î»ÖÃ
-	 * @param buffer_length
-	 *            -- ĞŞ¸ÄÄÚÈİ³¤¶È
-	 * @return -- ·µ»Ø0Ôòsuccess£¬!=0Ôòfalse
+	 * @param appender_file_id -- appenderæ–‡ä»¶fileId
+	 * @param file_offset -- appenderæ–‡ä»¶å¼€å§‹ä¿®æ”¹çš„ä½ç½®
+	 * @param file_buff -- ä¿®æ”¹çš„æ–‡ä»¶å†…å®¹
+	 * @param buffer_offset -- ä¿®æ”¹å†…å®¹å¼€å§‹ä½ç½®
+	 * @param buffer_length -- ä¿®æ”¹å†…å®¹é•¿åº¦
+	 * @return -- è¿”å›0åˆ™successï¼Œ!=0åˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
-	int modify_file(String appender_file_id, long file_offset, byte[] file_buff, int buffer_offset, int buffer_length);
+	int modify_file(String appender_file_id, long file_offset,
+                     byte[] file_buff, int buffer_offset, int buffer_length);
 
 	/**
-	 * ĞŞ¸ÄÎÄ¼ş
+	 * ä¿®æ”¹æ–‡ä»¶
 	 *
-	 * @param appender_file_id
-	 *            -- appenderÎÄ¼şfileId
-	 * @param file_offset
-	 *            -- appenderÎÄ¼ş¿ªÊ¼ĞŞ¸ÄµÄÎ»ÖÃ
-	 * @param modify_size
-	 *            -- ĞŞ¸Ä´óĞ¡
-	 * @param callback
-	 *            -- callback¶ÔÏó£¬Êı¾İµ½´ïÊ±»áµ÷ÓÃcallback.recv()Ïê¼û¹Ù·½API
-	 * @return ·µ»Ø0Ôòsuccess£¬!=0Ôòfalse
+	 * @param appender_file_id -- appenderæ–‡ä»¶fileId
+	 * @param file_offset -- appenderæ–‡ä»¶å¼€å§‹ä¿®æ”¹çš„ä½ç½®
+	 * @param modify_size -- ä¿®æ”¹å¤§å°
+	 * @param callback -- callbackå¯¹è±¡ï¼Œæ•°æ®åˆ°è¾¾æ—¶ä¼šè°ƒç”¨callback.recv()è¯¦è§å®˜æ–¹API
+	 * @return è¿”å›0åˆ™successï¼Œ!=0åˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
-	int modify_file(String appender_file_id, long file_offset, long modify_size, UploadCallback callback);
+	int modify_file(String appender_file_id, long file_offset,
+                     long modify_size, UploadCallback callback);
 
 	/**
-	 * É¾³ıÎÄ¼ş
+	 * åˆ é™¤æ–‡ä»¶
 	 *
-	 * @param file_id
-	 *            É¾³ıÎÄ¼şµÄfileId
-	 * @return -- ·µ»Ø0Ôòsuccess£¬!=0Ôòfalse
+	 * @param file_id åˆ é™¤æ–‡ä»¶çš„fileId
+	 * @return -- è¿”å›0åˆ™successï¼Œ!=0åˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
@@ -460,7 +346,7 @@ public interface FastDfsOperations {
 	 *
 	 *
 	 * @param appender_file_id
-	 * @return --·µ»Ø0Ôòsuccess£¬!=0Ôòfalse
+	 * @return --è¿”å›0åˆ™successï¼Œ!=0åˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
@@ -471,32 +357,28 @@ public interface FastDfsOperations {
 	 *
 	 * @param appender_file_id
 	 * @param truncated_file_size
-	 * @return -- ·µ»Ø0Ôòsuccess£¬!=0Ôòfalse
+	 * @return -- è¿”å›0åˆ™successï¼Œ!=0åˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
 	int truncate_file(String appender_file_id, long truncated_file_size);
 
 	/**
-	 * ÏÂÔØÎÄ¼ş
+	 * ä¸‹è½½æ–‡ä»¶
 	 *
-	 * @param file_id
-	 *            -- ÎÄ¼şfileId
-	 * @return
+	 * @param file_id -- æ–‡ä»¶fileId
+	 * @return 
 	 * @throws IOException
 	 * @throws MyException
 	 */
 	byte[] download_file(String file_id);
 
 	/**
-	 * ÏÂÔØÎÄ¼ş
+	 * ä¸‹è½½æ–‡ä»¶ 
 	 *
-	 * @param file_id
-	 *            -- ÎÄ¼şfileId
-	 * @param file_offset
-	 *            -- the start offset of the file
-	 * @param download_bytes
-	 *            -- download bytes, 0 for remain bytes from offset
+	 * @param file_id -- æ–‡ä»¶fileId
+	 * @param file_offset -- the start offset of the file
+	 * @param download_bytes -- download bytes, 0 for remain bytes from offset
 	 * @return
 	 * @throws IOException
 	 * @throws MyException
@@ -504,64 +386,54 @@ public interface FastDfsOperations {
 	byte[] download_file(String file_id, long file_offset, long download_bytes);
 
 	/**
-	 * ÏÂÔØÎÄ¼ş
+	 * ä¸‹è½½æ–‡ä»¶
 	 *
-	 * @param file_id
-	 *            -- ÎÄ¼şfileId
-	 * @param local_filename
-	 *            -- ÏÂÔØµ½±¾µØµÄÃû×Ö
-	 * @return -- ·µ»Ø0Ôòsuccess£¬!=0Ôòfalse
+	 * @param file_id -- æ–‡ä»¶fileId
+	 * @param local_filename -- ä¸‹è½½åˆ°æœ¬åœ°çš„åå­—
+	 * @return -- è¿”å›0åˆ™successï¼Œ!=0åˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
 	int download_file(String file_id, String local_filename);
 
 	/**
-	 * ÏÂÔØÎÄ¼ş
+	 * ä¸‹è½½æ–‡ä»¶
 	 *
-	 * @param file_id
-	 *            -- ÎÄ¼şfileId
-	 * @param file_offset
-	 *            -- the start offset of the file
-	 * @param download_bytes
-	 *            -- download bytes, 0 for remain bytes from offset
-	 * @param local_filename
-	 *            -- ÏÂÔØµ½±¾µØµÄÃû×Ö
-	 * @return ·µ»Ø0Ôòsuccess£¬!=0Ôòfalse
+	 * @param file_id -- æ–‡ä»¶fileId
+	 * @param file_offset -- the start offset of the file
+	 * @param download_bytes -- download bytes, 0 for remain bytes from offset
+	 * @param local_filename -- ä¸‹è½½åˆ°æœ¬åœ°çš„åå­—
+	 * @return è¿”å›0åˆ™successï¼Œ!=0åˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
-	int download_file(String file_id, long file_offset, long download_bytes, String local_filename);
+	int download_file(String file_id, long file_offset, long download_bytes,
+                       String local_filename);
 
 	/**
-	 * ÏÂÔØÎÄ¼ş
+	 * ä¸‹è½½æ–‡ä»¶
 	 *
-	 * @param file_id
-	 *            -- ÎÄ¼şfileId
-	 * @param callback
-	 *            -- callback¶ÔÏó£¬Êı¾İµ½´ïÊ±»áµ÷ÓÃcallback.recv()Ïê¼û¹Ù·½API
-	 * @return -- ·µ»Ø0Ôòsuccess£¬!=0Ôòfalse
+	 * @param file_id -- æ–‡ä»¶fileId
+	 * @param callback -- callbackå¯¹è±¡ï¼Œæ•°æ®åˆ°è¾¾æ—¶ä¼šè°ƒç”¨callback.recv()è¯¦è§å®˜æ–¹API
+	 * @return -- è¿”å›0åˆ™successï¼Œ!=0åˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
 	int download_file(String file_id, DownloadCallback callback);
 
 	/**
-	 * ÏÂÔØÎÄ¼ş
+	 * ä¸‹è½½æ–‡ä»¶
 	 *
-	 * @param file_id
-	 *            -- ÎÄ¼şfileId
-	 * @param file_offset
-	 *            -- the start offset of the file
-	 * @param download_bytes
-	 *            -- download bytes, 0 for remain bytes from offset
-	 * @param callback
-	 *            -- callback¶ÔÏó£¬Êı¾İµ½´ïÊ±»áµ÷ÓÃcallback.recv()Ïê¼û¹Ù·½API
-	 * @return -- ·µ»Ø0Ôòsuccess£¬!=0Ôòfalse
+	 * @param file_id -- æ–‡ä»¶fileId
+	 * @param file_offset -- the start offset of the file
+	 * @param download_bytes -- download bytes, 0 for remain bytes from offset
+	 * @param callback -- callbackå¯¹è±¡ï¼Œæ•°æ®åˆ°è¾¾æ—¶ä¼šè°ƒç”¨callback.recv()è¯¦è§å®˜æ–¹API
+	 * @return -- è¿”å›0åˆ™successï¼Œ!=0åˆ™false
 	 * @throws IOException
 	 * @throws MyException
 	 */
-	int download_file(String file_id, long file_offset, long download_bytes, DownloadCallback callback);
+	int download_file(String file_id, long file_offset, long download_bytes,
+                       DownloadCallback callback);
 
 	/**
 	 * 

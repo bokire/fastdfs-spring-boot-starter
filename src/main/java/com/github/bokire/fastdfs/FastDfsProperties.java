@@ -1,68 +1,34 @@
 package com.github.bokire.fastdfs;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.NestedConfigurationProperty;
+
+import com.github.bokire.fastdfs.util.FastDfsClient;
+import com.github.bokire.fastdfs.util.PoolConfig;
 
 @ConfigurationProperties(prefix = "spring.fastdfs")
 public class FastDfsProperties {
 
-	private String charset;
+	@NestedConfigurationProperty
+	private FastDfsClient client;
 
-	private int connectTimeout;
+	@NestedConfigurationProperty
+	private PoolConfig pool;
 	
-	private int networkTimeout;
+	public FastDfsClient getClient() {
+		return client;
+	}
 
-	private String antiStealToken;
+	public void setClient(FastDfsClient client) {
+		this.client = client;
+	}
+
+	public PoolConfig getPool() {
+		return pool;
+	}
+
+	public void setPool(PoolConfig pool) {
+		this.pool = pool;
+	}
 	
-	private String secretKey;
-
-	private String trackerServer;
-
-	public String getCharset() {
-		return charset;
-	}
-
-	public void setCharset(String charset) {
-		this.charset = charset;
-	}
-
-	public int getConnectTimeout() {
-		return connectTimeout;
-	}
-
-	public void setConnectTimeout(int connectTimeout) {
-		this.connectTimeout = connectTimeout;
-	}
-
-	public int getNetworkTimeout() {
-		return networkTimeout;
-	}
-
-	public void setNetworkTimeout(int networkTimeout) {
-		this.networkTimeout = networkTimeout;
-	}
-
-	public String getAntiStealToken() {
-		return antiStealToken;
-	}
-
-	public void setAntiStealToken(String antiStealToken) {
-		this.antiStealToken = antiStealToken;
-	}
-
-	public String getSecretKey() {
-		return secretKey;
-	}
-
-	public void setSecretKey(String secretKey) {
-		this.secretKey = secretKey;
-	}
-
-	public String getTrackerServer() {
-		return trackerServer;
-	}
-
-	public void setTrackerServer(String trackerServer) {
-		this.trackerServer = trackerServer;
-	}
-
 }
